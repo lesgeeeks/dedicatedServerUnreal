@@ -1,0 +1,14 @@
+.vs/
+.vscode/settings.json
+*.dll
+*.pdb
+*.sln
+*.unrealvs
+Build/Windows
+DerivedDataCache
+enc_temp_folder
+Intermediate/
+Saved/
+Script/Binds.Cache
+Script/Binds.Cache.Headers
+UpgradeLog.htm
