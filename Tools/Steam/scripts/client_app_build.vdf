@@ -1,0 +1,31 @@
+"AppBuild"
+{
+	"AppID" "your_app_id_here" // your AppID
+	"Desc" "Should add build number here"
+
+	"ContentRoot" "..\content\Windows" // root content folder, relative to location of this file
+	"BuildOutput" "..\output\" // build output folder for build logs and build cache files
+	"Preview" "0" // enable when testing scripts
+	"SetLive" "development" // set this build live on dev branch
+
+	"Depots"
+	{
+		"your_depot_id_here" // your DepotID
+		{
+			"FileMapping"
+			{
+				"LocalPath" "*" // all files from contentroot folder
+				"DepotPath" "." // mapped into the root of the depot
+				"recursive" "1" // include all subfolders
+			}
+
+			"FileExclusion" "*.pdb" // exclude all .PDB files everywhere
+			"FileExclusion" ".gitkeep" // dummy file
+			"FileExclusion" "DediServerSample/Saved"
+			"FileExclusion" "Engine/Saved"
+			"FileExclusion" "Manifest_DebugFiles_Win64.txt"
+			"FileExclusion" "Manifest_NonUFSFiles_Win64.txt"
+			"FileExclusion" "Manifest_UFSFiles_Win64.txt"
+		}
+	}
+}
