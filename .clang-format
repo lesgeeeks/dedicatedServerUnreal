@@ -1,0 +1,37 @@
+---
+Language: Cpp
+Standard: c++20
+
+AccessModifierOffset: -4
+ColumnLimit:          0
+IndentWidth:          4
+TabWidth:             4
+UseTab:               AlignWithSpaces
+
+AlignAfterOpenBracket:               DontAlign
+AlignConsecutiveAssignments:         AcrossComments
+AlignConsecutiveMacros:              AcrossComments
+AllowShortCaseLabelsOnASingleLine:   true
+AllowShortIfStatementsOnASingleLine: Never
+BreakConstructorInitializers:        BeforeComma
+FixNamespaceComments:                true
+NamespaceIndentation:                All
+PackConstructorInitializers:         Never
+PointerAlignment:                    Left
+ShortNamespaceLines:                 10
+SortIncludes:                        true
+
+AlignConsecutiveShortCaseStatements:
+    Enabled: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterClass:            true
+    AfterControlStatement: Always
+    AfterEnum:             true
+    AfterFunction:         true
+    AfterNamespace:        true
+    AfterStruct:           true
+    BeforeElse:            true
+    BeforeLambdaBody:      false
+---

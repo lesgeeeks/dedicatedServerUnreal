@@ -4,11 +4,14 @@
 *.pdb
 *.sln
 *.unrealvs
+Binaries/*
 Build/Windows
+Build/WindowsServer
 DerivedDataCache
 enc_temp_folder
 Intermediate/
 Saved/
 Script/Binds.Cache
 Script/Binds.Cache.Headers
+Tools/Steam/Content
 UpgradeLog.htm
