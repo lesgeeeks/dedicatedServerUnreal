@@ -157,14 +157,14 @@ void UFindSessionsCallbackProxyAdvanced::Activate()
 			SearchObject->QuerySettings = tem;
 
 			//Sessions->FindSessions(*Helper.UserID, SearchObject.ToSharedRef());
+			// TODO TODO TODO
+			// This search code has been temporarily modified. It was not correctly finding dedicated servers?
 			{
 				TSharedPtr<FOnlineSessionSearch> MySearch = MakeShareable(new FOnlineSessionSearch);
-				MySearch->MaxSearchResults                = 50;
-				//MySearch->QuerySettings.Set(SETTING_MAPNAME, FString(), EOnlineComparisonOp::Equals);
+				MySearch->MaxSearchResults                = MaxResults;
+				MySearch->bIsLanQuery                     = bUseLAN;
 				MySearch->QuerySettings.Set(SEARCH_DEDICATED_ONLY, true, EOnlineComparisonOp::Equals);
-				//MySearch->QuerySettings.Set(SEARCH_EMPTY_SERVERS_ONLY, false, EOnlineComparisonOp::Equals);
 				MySearch->QuerySettings.Set(SEARCH_SECURE_SERVERS_ONLY, false, EOnlineComparisonOp::Equals);
-				//MySearch->QuerySettings.Set(SEARCH_KEYWORDS, CustomMatchKeyword, EOnlineComparisonOp::Equals);
 				TSharedRef<FOnlineSessionSearch> SearchSettingsRef = MySearch.ToSharedRef();
 				Sessions->FindSessions(*Helper.UserID, SearchSettingsRef);
 			}
