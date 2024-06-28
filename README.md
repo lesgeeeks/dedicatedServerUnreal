@@ -27,6 +27,8 @@ In addition, it is highly useful for servers to enable logging (UE_LOG etc) in S
 
 ```basic summary for updating the engine here```
 
+Remember to right-click the .uproject and switch the engine version to the one you have downloaded!
+
 ## Building the Client application
 
 Let's take a look at DediServerSample.Target.cs. This target will build the game client.
@@ -129,6 +131,8 @@ In Steam, go to View->Game Servers and look for "Spacewar" servers. The sample a
 
 ![steam browser](Docs/steambrowser.png)
 
+The sample server shows up with DummyMapName and 57 open player slots. The rest are other devs testing their own games.
+
 If it doesn't show up:
 1. Check the server log that no errors or warnings occurred during server launch
 2. Check your firewall setup.
@@ -144,6 +148,18 @@ This can help to rule out firewall issues.
 The client should successfully connect to the server. If it doesn't, check your firewall setup.
 
 ## Troubleshooting: Taking Unreal out of the picture
+
+Explain how to use the Spacewar sample to troubleshoot server browsing
+
+## FAQ: Testing the join flow in Editor
+
+You can't run the game server and game client at the same time connected to Steam. You can however run the client in Standalone mode (Steam should be running and logged on in the background), and run your prebuilt server on another PC and connect to it. This makes it easier to develop and test your server browser/join flow.
+
+If you don't run the client in Standalone, it won't launch with Steam but will use the 'null online subsystem'.
+
+## FAQ: steam_appid.txt
+
+Deploying a steam_appid.txt with the server binary is necessary only if the executable is not allowed to write to its directory. Normally the .txt file will be created when the application launches.
 
 ## FAQ: The server cannot find the Steam DLLs!
 
