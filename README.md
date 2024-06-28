@@ -18,7 +18,7 @@ The PC hosting the server MUST have its ports open. UDP port 27015 is used with 
 
 How this is configured depends on your networking and router setup. Also make sure your software firewall (Windows Defender etc.) is configured to allow incoming traffic on those ports.
 
-![alt text](Docs/ports.png)
+![ports](Docs/ports.png)
 
 ## Downloading the engine
 
@@ -98,11 +98,36 @@ public DediServerSampleServerTarget(TargetInfo Target) : base(Target)
 }
 ```
 
+As with the client, there is a simple build script provided under Tools/Build/build_development.server. Edit the engine/uproject paths and run the script. The final build should be placed under Tools/Steam/content/WindowsServer
+
+## Running the server
+
+Launch the server from the command line, e.g.
+
+```D:\UnrealProjects\DediServerSample\Tools\Steam\content>WindowsServer\DediServerSampleServer.exe -log```
+
+This way you will get the log window to easily see any status messages. After a successfull launch, the last messages in the log should be:
+
+```
+[ 82]LogBlueprintUserMessages: [BP_GameInstance_C_2147482578] Server created
+LogBlueprintUserMessages: [BP_GameInstance_C_2147482578] Started session
+```
+
+If there's ANY kind of issue with initializing Steam, you should get a fairly obvious message about it. For example, if Steam cannot launch due to the game client also running on the same PC, you would see:
+
+```
+LogSteamShared: Warning: Steam Dedicated Server API failed to initialize.
+LogOnline: STEAM: [AppId: 480] Game Server API initialized 0
+LogOnline: Warning: STEAM: Failed to initialize Steam, this could be due to a Steam server and client running on the same machine. Try running with -NOSTEAM on the cmdline to disable.
+LogOnline: Display: STEAM: OnlineSubsystemSteam::Shutdown()
+LogOnline: Warning: STEAM: Steam API failed to initialize!
+```
+
 ## Verifying the Server is visible in Steam
 
 In Steam, go to View->Game Servers and look for "Spacewar" servers. The sample application server will show up like this:
 
-![alt text](Docs/steambrowser.png)
+![steam browser](Docs/steambrowser.png)
 
 If it doesn't show up:
 1. Check the server log that no errors or warnings occurred during server launch
@@ -117,6 +142,10 @@ This can help to rule out firewall issues.
 - In client, open console and type "open 127.0.0.1" (if the server is running on the same PC)
 
 The client should successfully connect to the server. If it doesn't, check your firewall setup.
+
+## Troubleshooting: Taking Unreal out of the picture
+
+## FAQ: The server cannot find the Steam DLLs!
 
 ## Bonus: Uploading your game to Steam
 
