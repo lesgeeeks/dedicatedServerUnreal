@@ -3,7 +3,7 @@ setlocal EnableExtensions EnableDelayedExpansion
 title Publish local repo to GitHub (SSH)
 
 REM === CONFIG ===
-set "REMOTE_SSH=git@github.com:lesgeeeks/dedicatedServerUnreal.git"
+set "REMOTE_SSH=git@github.com:alexisdeudon01/server.git"
 
 REM --- Checks ---
 where git >nul 2>&1 || (echo [ERR] Git non installe. & pause & exit /b 1)
