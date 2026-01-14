@@ -55,13 +55,31 @@ echo Uploading client build to Steam...
 echo Username: %STEAM_USERNAME%
 echo.
 
-REM If password is empty or contains placeholder text, prompt interactively
-echo %STEAM_PASSWORD% | findstr /C:"your_steam_password_here" >nul && (
+REM Check if password looks like placeholder text (safer check without echoing password)
+set "PASSWORD_IS_PLACEHOLDER=0"
+if "%STEAM_PASSWORD%"=="your_steam_password_here" set "PASSWORD_IS_PLACEHOLDER=1"
+if not defined STEAM_PASSWORD set "PASSWORD_IS_PLACEHOLDER=1"
+
+if "%PASSWORD_IS_PLACEHOLDER%"=="1" (
+    REM No password stored - use interactive login
     echo Password not set in credentials file - SteamCMD will prompt for it
+    echo.
     builder\steamcmd.exe +login %STEAM_USERNAME% +run_app_build ..\scripts\client_app_build.vdf +quit
-) || (
-    REM Password is set in credentials file
-    builder\steamcmd.exe +login %STEAM_USERNAME% %STEAM_PASSWORD% +run_app_build ..\scripts\client_app_build.vdf +quit
+) else (
+    REM Password is set - create temporary config file for secure password passing
+    REM This avoids exposing password in command line arguments or process lists
+    echo @ShutdownOnFailedCommand 1 > temp_steam_config.txt
+    echo @NoPromptForPassword 1 >> temp_steam_config.txt
+    echo login %STEAM_USERNAME% %STEAM_PASSWORD% >> temp_steam_config.txt
+    echo run_app_build ..\scripts\client_app_build.vdf >> temp_steam_config.txt
+    echo quit >> temp_steam_config.txt
+    
+    echo Using stored password from credentials file
+    echo.
+    builder\steamcmd.exe +runscript temp_steam_config.txt
+    
+    REM Clean up temporary config file
+    if exist temp_steam_config.txt del temp_steam_config.txt
 )
 
 echo.
