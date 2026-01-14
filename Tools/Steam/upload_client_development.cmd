@@ -23,16 +23,20 @@ if not exist steam_credentials.txt (
     exit /b 1
 )
 
-REM Read credentials from file (first line = username, second line = password)
-set /p STEAM_USERNAME=<steam_credentials.txt
-more +1 steam_credentials.txt > temp_cred.txt
-set /p STEAM_PASSWORD=<temp_cred.txt
-if exist temp_cred.txt del temp_cred.txt
+REM Read credentials from file (skip comment lines starting with #)
+REM First non-comment line = username, second non-comment line = password
+for /f "eol=# delims=" %%i in (steam_credentials.txt) do (
+    if not defined STEAM_USERNAME (
+        set "STEAM_USERNAME=%%i"
+    ) else if not defined STEAM_PASSWORD (
+        set "STEAM_PASSWORD=%%i"
+    )
+)
 
-REM Remove comment lines and template placeholders
-echo %STEAM_USERNAME% | findstr /C:"#" >nul && (
+REM Validate that template placeholders have been replaced
+echo %STEAM_USERNAME% | findstr /C:"your_steam_username_here" >nul && (
     echo ERROR: Please edit steam_credentials.txt with your actual Steam username
-    echo The file still contains template/comment lines
+    echo The file still contains template placeholder text
     pause
     exit /b 1
 )

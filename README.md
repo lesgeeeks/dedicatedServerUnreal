@@ -180,8 +180,9 @@ The upload scripts require Steam authentication. To set this up securely:
    ```
 
 2. **Edit `steam_credentials.txt`** with your Steam username and password:
-   - First line: Your Steam username
-   - Second line: Your Steam password (optional - see security options below)
+   - First non-comment line: Your Steam username
+   - Second non-comment line: Your Steam password (optional - see security options below)
+   - Lines starting with `#` are treated as comments and ignored
 
 3. **The file is automatically excluded from git** via `.gitignore` to prevent accidental commits
 
