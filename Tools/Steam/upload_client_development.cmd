@@ -27,7 +27,7 @@ REM Read credentials from file (first line = username, second line = password)
 set /p STEAM_USERNAME=<steam_credentials.txt
 more +1 steam_credentials.txt > temp_cred.txt
 set /p STEAM_PASSWORD=<temp_cred.txt
-del temp_cred.txt
+if exist temp_cred.txt del temp_cred.txt
 
 REM Remove comment lines and template placeholders
 echo %STEAM_USERNAME% | findstr /C:"#" >nul && (

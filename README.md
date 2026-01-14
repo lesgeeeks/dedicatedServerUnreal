@@ -214,7 +214,7 @@ The upload scripts require Steam authentication. To set this up securely:
 
 ## Bonus: Running a server on Steam Deck for testing
 
-Explain how to launch a serer on the Deck
+Explain how to launch a server on the Deck
 
 ## License
 
