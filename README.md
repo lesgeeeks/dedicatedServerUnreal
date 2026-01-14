@@ -167,6 +167,51 @@ Deploying a steam_appid.txt with the server binary is necessary only if the exec
 
 Example Steam upload scripts (.vdf and .cmd files) are found under Tools/Steam/. First you should download Steamcmd.exe from https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip and place the .exe in Tools/Steam/Builder. Then you'll need to modify the .vdf files to use your own app IDs and file names, but once they're set up you should be able to deploy new builds to Steam simply by running the Build scripts and then the Upload .cmd.
 
+### Steam Credentials Setup
+
+**IMPORTANT**: Never commit your Steam credentials to the repository!
+
+The upload scripts require Steam authentication. To set this up securely:
+
+1. **Copy the credentials template**:
+   ```
+   cd Tools/Steam
+   copy steam_credentials.template steam_credentials.txt
+   ```
+
+2. **Edit `steam_credentials.txt`** with your Steam username and password:
+   - First line: Your Steam username
+   - Second line: Your Steam password (optional - see security options below)
+
+3. **The file is automatically excluded from git** via `.gitignore` to prevent accidental commits
+
+#### Security Options
+
+**Option 1: Steam Guard (RECOMMENDED)**
+- Enable Steam Guard on your account: Steam Settings → Account → Manage Steam Guard Account Security
+- Leave the password field blank or use placeholder text in `steam_credentials.txt`
+- On first upload, SteamCMD will prompt for your Steam Guard code
+- After successful authentication, SteamCMD stores the session token locally
+- Subsequent uploads won't require password or Steam Guard code
+
+**Option 2: Interactive Password Entry (SECURE)**
+- Put only your username in `steam_credentials.txt`
+- Leave the password line with placeholder text or blank
+- SteamCMD will prompt you for the password when running the upload script
+- This prevents storing passwords in plain text files
+
+**Option 3: Stored Password (LESS SECURE)**
+- Store both username and password in `steam_credentials.txt`
+- Ensure file permissions are properly restricted
+- Only use this for personal development machines
+- Never use this approach on shared or CI/CD systems
+
+**For CI/CD Pipelines**:
+- Use Steam Guard with stored credentials
+- Consider using environment variables or secret management systems
+- Refer to SteamCMD documentation for automated build pipelines
+
+
 ## Bonus: Running a server on Steam Deck for testing
 
 Explain how to launch a serer on the Deck
