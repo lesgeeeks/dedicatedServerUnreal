@@ -14,5 +14,7 @@ Saved/
 Script/Binds.Cache
 Script/Binds.Cache.Headers
 Tools/Steam/Content
+Tools/Steam/steam_credentials.txt
+Tools/Steam/temp_steam_config.txt
 UpgradeLog.htm
 Plugins/AdvancedSessions/Binaries/*
