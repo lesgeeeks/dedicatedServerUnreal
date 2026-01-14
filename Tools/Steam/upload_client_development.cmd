@@ -68,18 +68,33 @@ if "%PASSWORD_IS_PLACEHOLDER%"=="1" (
 ) else (
     REM Password is set - create temporary config file for secure password passing
     REM This avoids exposing password in command line arguments or process lists
+    REM Note: The temp file is created with restricted permissions and deleted immediately after use
+    
+    REM Create temp file with restricted access (only current user can read)
     echo @ShutdownOnFailedCommand 1 > temp_steam_config.txt
     echo @NoPromptForPassword 1 >> temp_steam_config.txt
     echo login %STEAM_USERNAME% %STEAM_PASSWORD% >> temp_steam_config.txt
     echo run_app_build ..\scripts\client_app_build.vdf >> temp_steam_config.txt
     echo quit >> temp_steam_config.txt
     
+    REM Restrict file permissions to current user only (Windows)
+    icacls temp_steam_config.txt /inheritance:r /grant:r "%USERNAME%:F" >nul 2>&1
+    
     echo Using stored password from credentials file
     echo.
+    echo SECURITY NOTE: Password is passed via temporary script file, not command line
+    echo.
+    
     builder\steamcmd.exe +runscript temp_steam_config.txt
     
-    REM Clean up temporary config file
-    if exist temp_steam_config.txt del temp_steam_config.txt
+    REM Clean up temporary config file immediately
+    if exist temp_steam_config.txt (
+        del temp_steam_config.txt
+        if exist temp_steam_config.txt (
+            echo WARNING: Failed to delete temporary config file
+            echo Please manually delete temp_steam_config.txt
+        )
+    )
 )
 
 echo.
