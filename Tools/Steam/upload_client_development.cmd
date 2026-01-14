@@ -78,6 +78,8 @@ if "%PASSWORD_IS_PLACEHOLDER%"=="1" (
     echo quit >> temp_steam_config.txt
     
     REM Restrict file permissions to current user only (Windows)
+    REM Note: This may fail on older Windows versions, but the file is deleted immediately anyway
+    REM so this is a "best effort" security enhancement, not a critical requirement
     icacls temp_steam_config.txt /inheritance:r /grant:r "%USERNAME%:F" >nul 2>&1
     
     echo Using stored password from credentials file
