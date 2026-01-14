@@ -33,6 +33,16 @@ for /f "eol=# delims=" %%i in (steam_credentials.txt) do (
     )
 )
 
+REM Validate that credentials were read successfully
+if not defined STEAM_USERNAME (
+    echo ERROR: Could not read username from steam_credentials.txt
+    echo.
+    echo Please ensure the file contains at least one non-comment line with your Steam username
+    echo Lines starting with # are treated as comments and ignored
+    pause
+    exit /b 1
+)
+
 REM Validate that template placeholders have been replaced
 echo %STEAM_USERNAME% | findstr /C:"your_steam_username_here" >nul && (
     echo ERROR: Please edit steam_credentials.txt with your actual Steam username
